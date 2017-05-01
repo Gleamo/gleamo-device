@@ -31,7 +31,7 @@ class Hardware(IHardware):
         self.red_channel = GPIO.PWM(self.red_pin, 100)
         self.green_channel = GPIO.PWM(self.green_pin, 100)
         self.blue_channel = GPIO.PWM(self.blue_pin, 100)
-        self.motor_channel = GPIO.PWM(self.motor_pin, 0)
+        self.motor_channel = GPIO.PWM(self.motor_pin, 100)
 
         self.red_channel.start(0)
         self.green_channel.start(0)

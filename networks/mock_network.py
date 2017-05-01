@@ -25,7 +25,7 @@ class MockNetwork(INetwork):
                 "g": 0,
                 "b": 0
             },
-            "buzzer_pattern": "none"
+            "buzzer_pattern": "short"
         },
         {
             "duration": 10000,
