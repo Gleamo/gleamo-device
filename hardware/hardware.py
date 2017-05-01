@@ -31,12 +31,11 @@ class Hardware(IHardware):
         self.red_channel = GPIO.PWM(self.red_pin, 100)
         self.green_channel = GPIO.PWM(self.green_pin, 100)
         self.blue_channel = GPIO.PWM(self.blue_pin, 100)
-        self.motor_channel = GPIO.PWM(self.motor_pin, 490)
+        GPIO.setup(self.motor_pin, GPIO.OUT)
 
         self.red_channel.start(0)
         self.green_channel.start(0)
         self.blue_channel.start(0)
-        self.motor_channel.start(0)
         return self;
 
     def __exit__(self, exec_type, exec_val, exec_tb):
@@ -54,7 +53,7 @@ class Hardware(IHardware):
         self.blue_channel.ChangeDutyCycle(rgb[2])
 
     def run_motor(self, strength: float = 1):
-        self.motor_channel.ChangeDutyCycle(strength * 100)
+        GPIO.output(self.motor_pin, GPIO.HIGH)
 
     def stop_motor(self):
-        self.motor_channel.ChangeDutyCycle(0)
+        GPIO.output(self.motor_pin, GPIO.LOW)
