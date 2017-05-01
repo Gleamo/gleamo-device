@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 from .ihardware import IHardware
-from color import Color
+from colors.color import Color
 
 '''
 The Hardware class is set up to be used in a with statement
