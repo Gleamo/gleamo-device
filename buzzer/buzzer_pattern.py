@@ -18,5 +18,5 @@ class BuzzerPattern:
         self.strength = clamp(strength, 0, 1)
 
 BuzzerPattern.NONE = BuzzerPattern(0, 0)
-BuzzerPattern.SHORT = BuzzerPattern(1, 1)
-BuzzerPattern.LONG = BuzzerPattern(2, 1)
+BuzzerPattern.SHORT = BuzzerPattern(1000, 1)
+BuzzerPattern.LONG = BuzzerPattern(5000, 1)
