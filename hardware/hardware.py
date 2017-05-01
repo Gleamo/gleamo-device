@@ -7,7 +7,7 @@ The Hardware class is set up to be used in a with statement
 '''
 class Hardware(IHardware):
     def __init__(
-        self
+        self,
         red_pin: int = 14,
         green_pin: int = 15,
         blue_pin: int = 18,
