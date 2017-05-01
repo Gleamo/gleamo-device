@@ -1,6 +1,6 @@
 import time
 from hardware.hardware import Hardware
-from networks.polling import Polling
+from networks.mock_network import MockNetwork
 from scheduler.scheduler import Scheduler
 from dispatcher.dispatcher import Dispatcher
 
@@ -23,13 +23,13 @@ with Hardware(
     blue_pin=BLUE_PIN,
     motor_pin=MOTOR_PIN
 ) as hardware:
-    polling = Polling(ENDPOINT)
+    mock_network = MockNetwork(ENDPOINT)
     dispatcher = Dispatcher(
         hardware_service=hardware
     )
 
     scheduler = Scheduler(
-      network_service=polling,
+      network_service=mock_network,
       dispatcher_service=dispatcher
     )
 

@@ -1,4 +1,6 @@
-from .buzzer import BuzzerPattern
+from buzzer.buzzer_pattern import BuzzerPattern
+from colors.color import Color
+from utilities.clamp import clamp
 
 '''
 A command is the base object for the Gleamo hardware
@@ -9,28 +11,24 @@ A command carries the following information:
 - What the command should do as a sequence of events
 '''
 class Command:
-    @staticmethod
-    def json_to_commands(json):
-        # XXX
-        return []
-
     def __init__(
         self,
-        duration: long = 0,
-        start_offset: long = 0,
-        end_offset: long = 0,
-        color: Color,
-        buzzer_pattern: BuzzerPattern = BuzzerPattern.None
+        duration: int = 0,
+        start_offset: int = 0,
+        end_offset: int = 0,
+        color: Color = Color.no_change(),
+        buzzer_pattern: BuzzerPattern = BuzzerPattern.NONE
     ):
-        # TODO validate duration, start_offset, and end_offset with a max value
-        self.duration = duration
-        self.start_offset = start_offset
-        self.end_offset = end_offset
-        self.color = Color
+        self.duration = clamp(duration, 0, 10000)
+        self.start_offset = clamp(start_offset, 0, 10000)
+        self.end_offset = clamp(end_offset, 0, 10000)
+        self.color = color
         self.buzzer_pattern = buzzer_pattern
 
-    def set_start_time(self, time: long = 0):
-        self.start_time = time
+        self.start_time = 0
+
+    def set_start_time(self, time: int = 0):
+        self.start_time = max(time, 0)
 
     def is_expired(self, now):
         expected_end_time = self.start_time + self.duration + self.start_offset + self.end_offset

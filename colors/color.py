@@ -1,4 +1,5 @@
 import colorsys
+from utilities.clamp import clamp
 
 '''
 The Color Class
@@ -10,10 +11,18 @@ class Color:
     def no_change():
         return Color(r=-1, g=-1, b=-1)
 
+    '''
+    Convert an HLS object (that has h, l, and s keys) to an RGB Color
+    object. Hue, lightness, and saturation are decimals representing
+    percentages. ∃[0, 1]
+    '''
     @staticmethod
     def hls_to_rgb(hls):
-        # TODO clamp hls values
-        rgb = colorsys.hls_to_rgb(hls['h'], hls['l'], hls['s'])
+        rgb = colorsys.hls_to_rgb(
+            clamp(hls['h'], 0, 1),
+            clamp(hls['l'], 0, 1),
+            clamp(hls['s'], 0, 1)
+        )
 
         return Color(
             int(rgb[0] * 255),
@@ -22,10 +31,9 @@ class Color:
         )
 
     def __init__(self, r: int = 0, g: int = 0, b: int = 0):
-        # TODO clamp hls values
-        self.r = r
-        self.g = g
-        self.b = b
+        self.r = clamp(r, -1, 255)
+        self.g = clamp(g, -1, 255)
+        self.b = clamp(b, -1, 255)
 
     def is_no_change(self):
         return (

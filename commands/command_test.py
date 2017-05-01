@@ -1,47 +1,28 @@
 import unittest
 import json
-from .commands import Command
+from .command import Command
 
 class TestCommand(unittest.TestCase):
-    def test_converts_json_to_commands(self):
-        data = json.loads(
-'''
-{
-    "commands": [
-        {
-            "duration": 1000,
-            "start_offset": 0,
-            "end_offset": 0,
-            "color": {
-                "r": 100,
-                "g": 120,
-                "b": 250
-            },
-            "buzer_pattern": "none"
-        }
-    ]
-}
-'''
+    def test_creates_with_clamped_values(self):
+        command = Command(
+            duration=9999999,
+            start_offset=999999,
+            end_offset=999999
         )
-        pass
+
+        self.assertEqual(command.duration, 10000)
+        self.assertEqual(command.start_offset, 10000)
+        self.assertEqual(command.end_offset, 10000)
 
     def test_determines_that_a_command_has_expired(self):
-        pass
+        command = Command(
+            duration=100
+        )
 
-    def test_determined_that_a_command_has_not_expired(self):
-        pass
+        command.set_start_time(0)
 
-
-    # def test_upper(self):
-    #     self.assertEqual('foo'.upper(), 'FOO')
-    #
-    # def test_isupper(self):
-    #     self.assertTrue('FOO'.isupper())
-    #     self.assertFalse('Foo'.isupper())
-    #
-    # def test_split(self):
-    #     s = 'hello world'
-    #     self.assertEqual(s.split(), ['hello', 'world'])
-    #     # check that s.split fails when the separator is not a string
-    #     with self.assertRaises(TypeError):
-    #         s.split(2)
+        self.assertFalse(command.is_expired(0))
+        self.assertFalse(command.is_expired(99))
+        self.assertFalse(command.is_expired(100))
+        self.assertTrue(command.is_expired(101))
+        self.assertTrue(command.is_expired(100000))

@@ -1,11 +1,11 @@
-from .utilities import clamp
+from utilities.clamp import clamp
 
 '''
 The BuzzerPattern Class
 
 Contains information on different buzzer types
 
-@param int duration – how long in milliseconds to make the buzzer buzz
+@param int duration – how long in milliseconds to make the buzzer buzz: ∃[0, 1000]
 @param float strength – how hard to spin the buzzer: ∃[0, 1]
 '''
 class BuzzerPattern:
@@ -15,8 +15,8 @@ class BuzzerPattern:
         strength: float = 1
     ):
         self.duration = clamp(duration, 0, 1000)
-        self.strength = strength
+        self.strength = clamp(strength, 0, 1)
 
-BuzzerPattern.NONE = BuzzerPattern(0)
-BuzzerPattern.SHORT = BuzzerPattern(1)
-BuzzerPattern.LONG = BuzzerPattern(2)
+BuzzerPattern.NONE = BuzzerPattern(0, 0)
+BuzzerPattern.SHORT = BuzzerPattern(1, 1)
+BuzzerPattern.LONG = BuzzerPattern(2, 1)
