@@ -30,13 +30,15 @@ class Scheduler:
         # For now, we will just replace the current commands
         if commands != None:
             self.commands = commands
-            self.current_command = self.commands.pop()
+            self.current_command = self.commands[0]
+            del self.commands[0]
             self.current_command.set_start_time(now)
 
     def get_current_command(self, now):
         if self.current_command.is_expired(now):
             if len(self.commands) > 0:
-                self.current_command = self.commands.pop()
+                self.current_command = self.commands[0]
+                del self.commands[0]
                 self.current_command.set_start_time(now)
             else:
                 self.current_command = DefaultCommand

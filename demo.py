@@ -38,4 +38,4 @@ with Hardware(
         # Heads up, sleep is in seconds wtf
         # XXX When there are commands in the queue, run at 0.1,
         # when there are no commands in the queue, back off to 5 seconds
-        time.sleep(0.1)
+        time.sleep(0.017)
