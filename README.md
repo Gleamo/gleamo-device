@@ -18,7 +18,7 @@ python -m __integration.scheduler
 
 ## Configuration
 
-By default, there is a `config.example.cfg` file and a `config.local.cfg` value with
+By default, there is a `config.example.cfg` file and a `config.local.cfg` file with
 default values. Copy the example:
 
 ```sh
