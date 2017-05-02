@@ -11,13 +11,13 @@ class Hardware(IHardware):
         red_pin: int = 14,
         green_pin: int = 15,
         blue_pin: int = 18,
-        motor_pin: int = 2
+        motor_pin: int = 2,
+        debug: bool = False
     ):
         self.red_pin = red_pin
         self.green_pin = green_pin
         self.blue_pin = blue_pin
         self.motor_pin = motor_pin
-
 
     def __enter__(self):
         # set board mode to Broadcom (versus Board)
