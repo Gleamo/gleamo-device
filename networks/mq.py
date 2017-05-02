@@ -12,10 +12,9 @@ is set to 1 millisecond since it has no cost
 to get commands from the network
 '''
 class MQ(INetwork):
-    def __init__(self, endpoint):
-        self.endpoint = endpoint
+    def __init__(self, endpoint, username, password):
         self.queue = Queue.Queue()
-        self.subscriber = MQSubscriber(endpoint, self.queue)
+        self.subscriber = MQSubscriber(endpoint, username, password, self.queue)
         self.subscriber.start()
 
     def check(self):

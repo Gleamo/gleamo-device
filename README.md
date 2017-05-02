@@ -25,6 +25,14 @@ Make sure you have RabbitMQ installed to test locally:
 brew install rabbitmq
 ```
 
+Create a new user for connecting to the rabbitmq instance from outside of localhost:
+
+```sh
+# On OSX, rabbitmqctl is in /usr/local/sbin/rabbitmqctl
+rabbitmqctl delete_user guest
+rabbitmqctl add_user gleamo gleamo
+```
+
 Run each command in a different terminal:
 
 ```sh

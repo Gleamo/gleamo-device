@@ -8,7 +8,10 @@ from dispatcher.dispatcher import Dispatcher
 # Start up Gleamo
 #################
 
+# XXX Load from configuration file
 ENDPOINT = 'http://api.gleamo.com/v1/'
+USERNAME = 'gleamo'
+PASSWORD = 'gleamo'
 
 RED_PIN = 14
 GREEN_PIN = 15
@@ -23,7 +26,7 @@ with Hardware(
     blue_pin=BLUE_PIN,
     motor_pin=MOTOR_PIN
 ) as hardware:
-    network_service = MQ(ENDPOINT)
+    network_service = MQ(ENDPOINT, USERNAME, PASSWORD)
     dispatcher = Dispatcher(
         hardware_service=hardware
     )

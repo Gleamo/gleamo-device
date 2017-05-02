@@ -9,6 +9,8 @@ from dispatcher.dispatcher import Dispatcher
 #################
 
 ENDPOINT = 'localhost'
+USERNAME = 'gleamo'
+PASSWORD = 'gleamo'
 
 RED_PIN = 14
 GREEN_PIN = 15
@@ -24,7 +26,7 @@ with MockHardware(
     motor_pin=MOTOR_PIN,
     debug=True
 ) as hardware:
-    mq_network = MQ(ENDPOINT)
+    mq_network = MQ(ENDPOINT, USERNAME, PASSWORD)
     dispatcher = Dispatcher(
         hardware_service=hardware
     )
