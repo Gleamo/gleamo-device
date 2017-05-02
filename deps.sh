@@ -17,3 +17,4 @@ command -v pip >/dev/null 2>&1 || { echo >&2 "I require pip but it's not install
 # install dependencies
 pip install 'termcolor>=1.1.0'
 pip install 'gpio>=0.2.0'
+pip install 'pika>=0.10.0'
