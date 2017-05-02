@@ -16,7 +16,7 @@ This is for testing mainly, this should not be used
 in production
 '''
 class Polling(INetwork):
-    def __init__(self, endpoint):
+    def __init__(self, endpoint, username, password):
         self.endpoint = endpoint
 
     def check(self):

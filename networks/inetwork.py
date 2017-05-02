@@ -5,7 +5,7 @@ Any network code should extend this interface. The scheduler
 will expect any networks to behave the same
 '''
 class INetwork:
-    def __init__(self, endpoint):
+    def __init__(self, endpoint, username, password):
         self.endpoint = endpoint
 
     def check(self):

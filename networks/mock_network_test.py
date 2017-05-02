@@ -5,7 +5,7 @@ FAKE_ENDPOINT = 'test.com'
 
 class TestMockNetwork(unittest.TestCase):
     def test_converts_data_to_commands(self):
-        network = MockNetwork(FAKE_ENDPOINT)
+        network = MockNetwork(FAKE_ENDPOINT, 'username', 'password')
 
         commands = network.check()
 

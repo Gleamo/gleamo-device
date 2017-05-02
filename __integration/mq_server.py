@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 import pika
+from configuration.load import load_config
 
-credentials = pika.PlainCredentials('gleamo', 'gleamo')
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', credentials=credentials))
+config = load_config('./config.local.cfg')
+
+credentials = pika.PlainCredentials(config['username'], config['password'])
+connection = pika.BlockingConnection(pika.ConnectionParameters(host=config['endpoint'], credentials=credentials))
 channel = connection.channel()
 
 channel.queue_declare(queue='commands')

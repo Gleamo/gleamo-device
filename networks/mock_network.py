@@ -12,7 +12,7 @@ but really all it does is return a 30 second set of commands
 that can be polled for every 30 seconds
 '''
 class MockNetwork(INetwork):
-    def __init__(self, endpoint):
+    def __init__(self, endpoint, username, password):
         self.json = '''
 {
     "commands": [

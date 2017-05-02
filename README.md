@@ -10,47 +10,27 @@ Run the tests:
 python main.test.py
 ```
 
-Or run an integration test to see colors printed:
+Or run an integration test to see colors printed (see the next section for configuration options):
 
 ```sh
 python -m __integration.scheduler
 ```
 
+## Configuration
+
+By default, there is a `config.example.cfg` file and a `config.local.cfg` value with
+default values. Copy the example:
+
+```sh
+cp config.example.cfg config.cfg
+```
+
+Change the values in `./config.cfg` and `./config.local.cfg` to fit your needs.
+
 ## Testing the MQ service
 
-Make sure you have RabbitMQ installed to test locally:
-
-```sh
-# For OSX
-brew install rabbitmq
-```
-
-Create a new user for connecting to the rabbitmq instance from outside of localhost. Head up, this is just for testing:
-
-```sh
-# On OSX, rabbitmqctl is in /usr/local/sbin/rabbitmqctl
-rabbitmqctl delete_user guest
-rabbitmqctl add_user gleamo gleamo
-rabbitmqctl set_permissions gleamo "commands" ".*" ".*"
-```
-
-Then, add a configuration file in `/usr/local/etc/rabbitmq/rabbitmq.conf`:
-
-```erlang
-[
-  {rabbit, [
-    {tcp_listeners, [
-      {"::", 5672}
-    ]}
-  ]}
-].
-```
-
-On OSX, you'll need to remove the following like from `/usr/local/etc/rabbitmq/rabbitmq-env.conf`:
-
-```
-NODE_IP_ADDRESS=127.0.0.1
-```
+See [the Gleamo MQ knowledgebase](https://github.com/Gleamo/gleamo-mq) for
+instructions on setting up your local environment.
 
 Run each command in a different terminal:
 
@@ -64,8 +44,10 @@ python -m __integration.mq_server
 
 Run:
 
-```
+```sh
 sudo bash install.sh
 sudo bash deps.sh
 sudo python demo.py
+# or
+sudo python main.py
 ```
