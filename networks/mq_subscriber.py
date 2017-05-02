@@ -13,7 +13,7 @@ class MQSubscriber(threading.Thread):
         self.stoprequest = threading.Event()
 
     def callback(self, channel, method, properties, body):
-        data = json.loads(body)
+        data = json.loads(body.decode("utf-8"))
         commands = json_to_commands(data);
         self.queue.put(commands, True)
 

@@ -34,6 +34,24 @@ rabbitmqctl add_user gleamo gleamo
 rabbitmqctl set_permissions gleamo "commands" ".*" ".*"
 ```
 
+Then, add a configuration file in `/usr/local/etc/rabbitmq/rabbitmq.conf`:
+
+```erlang
+[
+  {rabbit, [
+    {tcp_listeners, [
+      {"::", 5672}
+    ]}
+  ]}
+].
+```
+
+On OSX, you'll need to remove the following like from `/usr/local/etc/rabbitmq/rabbitmq-env.conf`:
+
+```
+NODE_IP_ADDRESS=127.0.0.1
+```
+
 Run each command in a different terminal:
 
 ```sh
