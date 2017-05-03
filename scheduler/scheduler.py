@@ -32,34 +32,40 @@ class Scheduler:
             self.commands = commands
             self.current_command = self.commands[0]
             del self.commands[0]
-            self.current_command.set_start_time(now)
+            self.current_command.set_start_values(now, self.state.color)
 
     def get_current_command(self, now):
         if self.current_command.is_expired(now):
+            # Make sure our state is up to date
+            if not self.current_command.color.is_no_change():
+                self.state = State(self.current_command.color, BuzzerPattern.NONE)
+
             if len(self.commands) > 0:
                 self.current_command = self.commands[0]
                 del self.commands[0]
-                self.current_command.set_start_time(now)
+                self.current_command.set_start_values(now, self.state.color)
             else:
+                # We have no commands, use the default, but update the
+                # start values
                 self.current_command = DefaultCommand
+                self.current_command.set_start_values(now, self.state.color)
 
         return self.current_command
 
     # determine which commands should get run
-    def run_commands(self, now, diff):
+    def run_commands(self, now):
         current_command = self.get_current_command(now)
 
         if current_command != None:
-            next_state = self.dispatcher_service.dispatch(self.state, current_command, now)
+            next_state = self.dispatcher_service.dispatch(current_command, now)
             self.state = next_state
 
     def run(self):
         now = time() * 1000
-        diff = now - self.last_run
 
         if now - self.last_poll > self.network_service.get_poll_interval():
             self.last_poll = now
             self.update_commands(self.network_service.check(), now)
 
         self.last_run = now
-        self.run_commands(now, diff)
+        self.run_commands(now)

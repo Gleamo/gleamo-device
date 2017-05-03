@@ -17,7 +17,7 @@ channel.basic_publish(
     {
         "commands": [
             {
-                "duration": 5000,
+                "duration": 1000,
                 "start_offset": 0,
                 "end_offset": 0,
                 "color": {

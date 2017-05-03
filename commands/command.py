@@ -26,9 +26,11 @@ class Command:
         self.buzzer_pattern = buzzer_pattern
 
         self.start_time = 0
+        self.start_color = None
 
-    def set_start_time(self, time: int = 0):
+    def set_start_values(self, time: int = 0, color: Color = None):
         self.start_time = max(time, 0)
+        self.start_color = color
 
     def is_expired(self, now):
         expected_end_time = self.start_time + self.duration + self.start_offset + self.end_offset

@@ -15,21 +15,21 @@ class Dispatcher:
     def __init__(self, hardware_service: IHardware):
         self.hardware_service = hardware_service
 
-    def determine_color(self, current_color: Color, target_color: Color, start, end, now):
+    def determine_color(self, start_color: Color, target_color: Color, start, end, now):
         diff_until_end = end - now
         time_diff = now - start
 
         if target_color.is_no_change():
-            return current_color
+            return start_color
         elif diff_until_end <= 0:
             # Weird, we took too long
             return target_color
         elif time_diff == 0:
             # Weird, no time difference yet
-            return current_color
+            return start_color
         else:
             # convert the current state color to hsl
-            current_hsl = current_color.to_hls()
+            current_hsl = start_color.to_hls()
             # convert the current command color to hsl
             target_hsl = target_color.to_hls()
             # perform an interval between the two hsls
@@ -48,11 +48,11 @@ class Dispatcher:
         else:
             return BuzzerPattern.NONE
 
-    def dispatch(self, state: State, command: Command, now: int):
+    def dispatch(self, command: Command, now: int):
         start_time = command.start_time
         end_time = command.start_time + command.duration
 
-        next_color = self.determine_color(state.color, command.color, start_time, end_time, now)
+        next_color = self.determine_color(command.start_color, command.color, start_time, end_time, now)
         next_buzzer = self.determine_buzzer(command.buzzer_pattern, start_time, end_time, now)
 
         next_state = State(next_color, next_buzzer)
